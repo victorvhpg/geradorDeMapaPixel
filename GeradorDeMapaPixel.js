@@ -185,3 +185,19 @@ var GeradorDeMapaPixel = {
             loop();
         } //executarAnimacao
     }; //fim
+	
+	//========
+	//=======padroniza o requestAnimFrame 
+window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame || // padrao html5
+    window.webkitRequestAnimationFrame || //chrome ou safari
+    window.mozRequestAnimationFrame || //firefox
+    window.oRequestAnimationFrame || //opera
+    window.msRequestAnimationFrame || // m$
+
+    function(callback, element) { ////para navegadores antigos
+        window.setTimeout(function() {
+            callback(+new Date);
+        }, 1000 / 60);
+    };
+})();
