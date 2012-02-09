@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+ 
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+   <script type="text/javascript" src="GeradorDeMapaPixel.js"></script>
+ 
+  
+  <style type="text/css">
+    *{font-size:11px;}
+body{margin:15px}
+  </style>
+  
+
+
+<script type="text/javascript">//<![CDATA[ 
+
+//======================================
+//
+//@victorvhpg 
+// teste para gerar frame de animacao  #javascript #HTML5 #canvas
+//
+// 
+//=============================================
+jQuery(function($) {
+
+     
+
+    $(document).keypress(function() {
+        GeradorDeMapaPixel.ESCREVE = true;
+    });
+    $(document).keyup(function() {
+        GeradorDeMapaPixel.ESCREVE = false;
+    });
+
+
+    $("#gerarInput").on("click", function() {
+
+        var qtd = parseInt($("#qtd").val(), 10);
+        var altura = parseInt($("#altura").val(), 10);
+        var largura = parseInt($("#largura").val(), 10);
+        var mapaCor = {};
+        var tempCor = $.trim($("#mapaCor").val()).split("\n");
+        $.each(tempCor, function(i, item) {
+            mapaCor[$.trim(item.split(":")[0])] = $.trim(item.split(":")[1]);
+        });
+
+
+        GeradorDeMapaPixel.geraInputs({
+            "qtd": qtd,
+            "altura": altura,
+            "largura": largura,
+            "mapaCor": mapaCor,
+            "$saidaInput": $("#saidaInput")
+
+        });
+        alert("Agora faça o desenho escolhendo a cor ativa e passando o mouse nos inputs segurando apertado qualquer tecla( ex: aperte e segure a tecla X e passe o mouse nos inputs segurando a tecla X) ou clicando nos inputs.\nDepois de desenhar execute a animacao ou gere a matriz");
+    });
+    //------
+    
+});
+
+
+
+//=======padroniza o requestAnimFrame 
+window.requestAnimFrame = (function() {
+    return window.requestAnimationFrame || // padrao html5
+    window.webkitRequestAnimationFrame || //chrome ou safari
+    window.mozRequestAnimationFrame || //firefox
+    window.oRequestAnimationFrame || //opera
+    window.msRequestAnimationFrame || // m$
+
+    function(callback, element) { ////para navegadores antigos
+        window.setTimeout(function() {
+            callback(+new Date);
+        }, 1000 / 60);
+    };
+})();
+//]]>  
+
+</script>
+
+
+</head>
+<body>
+  Quantidade de frames: 
+<input value="3" size="3" id="qtd" type="text">
+<br>
+Largura de cada frame:Update 
+<input value="15" size="3" id="largura" type="text">
+<br>
+Altura de cada frame: 
+<input value="15" size="3" id="altura" type="text">
+<br>
+
+Mapa de cor :<br>
+<textarea id="mapaCor" style="width: 210px; height: 130px;">0 : rgba(255,255,255,0)
+1 : rgb(000,000,000)
+2 : rgb(000,255,000)
+3 : rgb(077,077,077)
+4 : rgb(30,144,255)
+5 : rgb(255, 255, 102)
+'A' : rgb(123,033,031)
+'X' : rgb(255,000,000)
+
+</textarea>
+<br>
+<div id="passo1">
+    Passo 1 :  
+<button id="gerarInput">Gerar Inputs</button>
+</div>
+<br><br>
+<div id="saidaInput"></div>
+
+
+  
+
+
+
+
+
+</body></html>
